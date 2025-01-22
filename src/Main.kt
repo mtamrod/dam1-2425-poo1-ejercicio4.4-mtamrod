@@ -23,7 +23,6 @@ Intenta instanciar y modificar el color a un valor nulo y comprueba que no es po
 Todas estas pruebas debes hacerla capturando las excepciones que deben lanzarse desde la clase Coche cuando el valor de una propiedad no es correcto (según los resuisitos del ejercicio)
  */
 
-
 //TODO: Cambiar la actividad a la corregida por Diego (Revisar correo)
 
 class Coche(var color: String, marca: String, modelo: String, cv: Int, matricula: String, nPuertas: Int) {
