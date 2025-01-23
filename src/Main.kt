@@ -28,26 +28,30 @@ Todas estas pruebas debes hacerla capturando las excepciones que deben lanzarse 
 class Coche(color: String?, marca: String?, modelo: String?,
             private val cv: Int?, private val matricula: String?, private val nPuertas: Int?) {
 
-    var color: String? = color
-        //En este set controlamos que lance una excepción solo en el caso en el que al modificarse sea nulo
+    //El IDE me solicita que ponga el atributo color como privado, ya que no lo estoy llamando directamente.
+    private var color: String? = color
+        //En este set controlamos que lance una excepción solo en el caso en el que al ¡¡¡modificarse!!! sea nulo
         set(value) {
             if (value == null) throw IllegalArgumentException("El color no puede ser nulo")
             field = value
         }
 
+    //En estos 2 setters se controla que la salida de marca y modelo sea 'Capitalize'
     private var marca: String? = marca
         get() = field?.lowercase()?.replaceFirstChar { it.uppercase() }
 
     private var modelo: String? = modelo
         get() = field?.lowercase()?.replaceFirstChar { it.uppercase() }
 
+
+    //Restricciones aplicadas al crear un objeto con su correspondiente mensaje de error en caso de capturar excepciones
     init {
-        require(!marca.isNullOrEmpty())
-        require(!modelo.isNullOrEmpty())
-        require(matricula?.length == 7)
-        require(cv in 70..700)
-        require(nPuertas in 3..5)
-        require(color != null)
+        require(!marca.isNullOrEmpty()) { "El campo 'marca' no puede ser nula ni vacía.\nMarca introducida: $marca" }
+        require(!modelo.isNullOrEmpty()) { "El campo 'modelo' no puede ser nula ni vacía.\nMarca introducida: $modelo" }
+        require(matricula?.length == 7) { "El campo 'matrícula' no puede contener una cantidad de caracteres diferente a 7.\nCaracteres introducidos: ${matricula?.length}" }
+        require(cv in 70..700) { "El campo 'caballos de fuerza' debe de estar entre 70 y 700.\nCv introducidos: $cv" }
+        require(nPuertas in 3..5) { "El campo 'numero de puertas' debe de estar entre 3 y 5.\nNumero de puertas introducido: $nPuertas" }
+        require(color != null) { "El campo 'color' no puede ser nulo.\nColor introducido: $color" }
     }
 
     override fun toString(): String {
@@ -56,22 +60,23 @@ class Coche(color: String?, marca: String?, modelo: String?,
 }
 
 fun main() {
-    //Instanciar Objetos
-    val c1 = Coche(null, "nissan", "Juke", 150, "123456A", 5)
-    /*
-    val c2 = Coche("Negro", "", "Focus", 50, "000560C", 4)
-    val c3 = Coche("Naranja", "Seat", "Toledo", 120, "000000W", 3)
-    val c4 = Coche("Azul", "Volkswagen", "Golf", 150, "654321F", 20)
-    val c5 = Coche("Verde", "Peugeot", "205d", 60, "440625N", 4)
-    */
-    //Mostrar por pantalla
-    /*
-    println(c1.toString())
-    println(c2.toString())
-    println(c3.toString())
-    println(c4.toString())
-     */
+    try {
+        //Instancia de Objetos
+        val c1 = Coche(null, "nissan", "Juke", 150, "123456A", 5)
 
+        val c2 = Coche("Negro", "", "Focus", 50, "000560C", 4)
+        val c3 = Coche("Naranja", "Seat", "Toledo", 120, "000000W", 3)
+        val c4 = Coche("Azul", "Volkswagen", "Golf", 150, "654321F", 20)
+        val c5 = Coche("Verde", "Peugeot", "205d", 60, "440625N", 4)
 
+        //Mostrar por pantalla
+        println(c1.toString())
+        println(c2.toString())
+        println(c3.toString())
+        println(c4.toString())
+        println(c5.toString())
 
+    } catch (e: Exception) {
+        println(e.message)
+    }
 }
