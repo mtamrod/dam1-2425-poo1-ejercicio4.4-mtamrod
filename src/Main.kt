@@ -23,8 +23,6 @@ Intenta instanciar y modificar el color a un valor nulo y comprueba que no es po
 Todas estas pruebas debes hacerla capturando las excepciones que deben lanzarse desde la clase Coche cuando el valor de una propiedad no es correcto (según los requisitos del ejercicio)
  */
 
-//TODO: Ajustar la captura de excepciones (Revisar Readme.md)
-
 class Coche(color: String?, marca: String?, modelo: String?,
             private val cv: Int?, private val matricula: String?, private val nPuertas: Int?) {
 
